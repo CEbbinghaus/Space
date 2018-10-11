@@ -1,6 +1,7 @@
 class Space{
-  constructor(e, f = false, c = false){
-    this.canvas = e || document.getElementById(e) || document.getElementsByTagName("canvas");
+  constructor(e, f = false, c = true){
+    this.canvas = e.localName == 'canvas' ? e : document.getElementById(e);
+    if(!this.canvas)throw("You must Provide a Canvas Element");
     this.ctx = this.canvas.getContext("2d");
     this.cr = this.canvas.getClientRects()[0];
     this.center = c;
@@ -39,10 +40,8 @@ class Space{
     let y = e.clientY - this.cr.top;
     // if (x < 0 || y < 0 || x > this.width || y > this.width)return;
     let d = (innerWidth + innerHeight) / 1000
-    this.xo = ((this.center ? innerWidth : this.width) / 2 - (this.center ? evt.clientX : x)).clamp(this.width / 2);
-    this.yo = ((this.center ? innerHeight : this.height) / 2 - (this.center ? evt.clientY : y)).clamp(this.height / 2);
-    // this.xo = ((this.center ? innerWidth : this.width) / 2 - this.center ? e.clientX : x) / d;
-    // this.yo = ((this.center ? innerHeight : this.height) / 2 - this.center ? e.clientY : y) / d;
+    this.xo = ((!this.center ? innerWidth : this.width) / 2 - (!this.center ? evt.clientX : x)).clamp(this.width / 2);
+    this.yo = ((!this.center ? innerHeight : this.height) / 2 - (!this.center ? evt.clientY : y)).clamp(this.height / 2);
   }
   update(){
     let d = 10;
