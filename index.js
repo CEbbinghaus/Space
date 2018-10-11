@@ -1,5 +1,5 @@
 class Space{
-  constructor(e, s){
+  constructor(e){
     this.canvas = e || document.getElementById(e) || document.getElementsByTagName("canvas");
     this.ctx = this.canvas.getContext("2d");
     this.width = 0;
