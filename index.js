@@ -1,7 +1,8 @@
 class Space{
-  constructor(e, s){
+  constructor(e, f = false){
     this.canvas = e || document.getElementById(e) || document.getElementsByTagName("canvas");
     this.ctx = this.canvas.getContext("2d");
+    this.cr = this.canvas.getClientRects()[0];
     this.width = 0;
     this.height = 0;
     this.stars = Array.from(new Array(100));
@@ -9,11 +10,19 @@ class Space{
     this.next = null;
     this.xo = 0;
     this.yo = 0;
+    this.f = f;
+    this.x = 0;
+    this.y = 0;
   }
   init(){
     this.stars.map((e, i) => {this.stars[i] = new Star()})
-    this.resize();
-    onresize = this.resize.bind(this);
+    if(this.f){
+      this.resize();
+      onresize = this.resize.bind(this);
+    }else{
+      this.canvas.width = this.width = this.cr.width;
+      this.canvas.height = this.height = this.cr.height;  
+    }
     onmousemove = this.move.bind(this)
     this.next = requestAnimationFrame(this.update.bind(this))
   }
@@ -23,8 +32,12 @@ class Space{
   }
   move(e){
     let evt = e || event;
-    this.xo = this.width / 2 - evt.clientX;
-    this.yo = this.height / 2 - evt.clientY;
+    let x = e.clientX - this.cr.left;
+    let y = e.clientY - this.cr.top;
+    // if (x < 0 || y < 0 || x > this.width || y > this.width)return;
+    let d = (innerWidth + innerHeight) / 1000
+    this.xo = (this.width / 2 - x) / d;
+    this.yo = (this.height / 2 - y) / d;
   }
   update(){
     let d = 10;

@@ -5,3 +5,9 @@
 body{
   background: #363842
 }
+canvas{
+  position: fixed;
+  width: 30%;
+  height: 50%;
+  top: 25%;
+}
