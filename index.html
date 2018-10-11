@@ -3,13 +3,16 @@
   <meta name="description" content="A Simple Space Background">
   <meta name="og:image" content="./index.png">
   <link rel="stylesheet" href="./index.css">
+  <meta name="msapplication-TileColor" content="#38a8a2">
+  <meta name="theme-color" content="#38a8a2">
   <script src="./index.js">
   </script>
 </head>
 <body>
   <script>
     onload = function () {
-      var s = new Space(document.getElementById("canvas"));
+      window.s = new Space(document.getElementById("canvas"));
+      s.resize();
     }
   </script>
   <canvas id="canvas"></canvas>
