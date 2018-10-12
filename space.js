@@ -8,7 +8,6 @@ class Space{
     this.width = 0;
     this.height = 0;
     this.stars = Array.from(new Array((this.cr.width + this.cr.height) / 20 | 0));
-    this.init();
     this.next = null;
     this.xo = 0;
     this.yo = 0;
@@ -16,13 +15,14 @@ class Space{
     this.r = 5;
     this.x = 0;
     this.y = 0;
+    this.init();
   }
   init(){
     this.stars.map((e, i) => {this.stars[i] = new Star()})
-    this.resize();
     onresize = this.resize.bind(this);
     onmousemove = this.move.bind(this)
     this.next = requestAnimationFrame(this.update.bind(this))
+    this.resize();
   }
   resize(){
     this.cr = this.canvas.getClientRects()[0];
